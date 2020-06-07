@@ -17,7 +17,7 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['I am allergic to milk', 'I am allergic to tomatoes', 'I am allergic to mangoes', 'I am allergic to nuts'];
+      ['Hello!', 'Bonjour!', ];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];

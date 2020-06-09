@@ -1,18 +1,208 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Michaela's Portfolio</title>
+<!-- 
+
+Timeless Template 
+
+http://www.templatemo.com/tm-517-timeless
+
+-->
+    <!-- load CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!-- Templatemo style -->
+</head>
+    <div class="navigation">
+        <a href="#aboutme">About Me</a>
+        <a href="#project">Projects</a>
+        <a href="#randomskills">Random Skills</a>
     </div>
-  </body>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="text-center tm-site-header">
+                    <div class="tm-site-logo"></div>
+                    <h1 class="pl-4 tm-site-title">Michaela Tang's Portfolio</h1>
+                </header>
+            </div>
+        </div>
+        <!-- About Me -->
+        <a name="aboutme"></a>
+        <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="title">About Me</h3>
+                    <p class="paragraph">I'm Michaela, a Year 2 Computer Science student at NUS. I thought one way to introduce myself would be to share some of the <a href="#randomskills"/>random skills I've tried over the years</a>, since I think they'd give you a pretty good idea of who I am as a person.</p>
+                </div>
+        </div>
+        <hr>
+        <!-- Projects -->
+        <a name="project"></a>
+            <div class="row tm-section-mb">
+                <div class="col-lg-12">
+                    <h3 class="title">Projects</h3>
+                        <div class="project-item">
+                            <div class="tm-timeline-item-inner">
+                                <div class="tm-timeline-description-wrap">
+                                    <div class="tm-bg-dark-light tm-timeline-description">
+                                        <h3 class="tm-text-cyan tm-font-400">On The Pill</h3>
+                                        <p>An android app that serves as both a reminder app for medication, and also an information source for said medication.</p>
+                                        <p class="tm-text-cyan float-right mb-0">2019</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-item">
+                            <div class="tm-timeline-item-inner">
+                                <div class="tm-timeline-description-wrap">
+                                    <div class="tm-bg-dark tm-timeline-description">
+                                        <h3 class="tm-text-green tm-font-400">Duke</h3>
+                                        <p>A chatbot that serves as a task manager that can also give trivia questions sourced from online.</p>
+                                        <p class="tm-text-green float-right mb-0">2019</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-item">
+                            <div class="tm-timeline-item-inner">
+                                <div class="tm-timeline-description-wrap">
+                                    <div class="tm-bg-dark-light tm-timeline-description">
+                                        <h3 class="tm-text-cyan tm-font-400">treasurerPro (tP)</h3>
+                                        <p>A management application that aids treasurers of Co-curricular Activities and Societies with better management of finances and reimbursements for its members.</p>
+                                        <p class="tm-text-cyan float-right mb-0">2019</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        <hr>
+        <!-- Skills -->
+        <a name="randomskills"></a>
+        <div class="container tm-container-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="tm-welcome-text" style="text-align:center;">Random Skills I've Tried Over The Years</h2>
+                </div>
+            </div>
+            <div class="row tm-section-mb">
+                <div class="col-lg-12">
+                    <div class=" tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="images/tap.jpg" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark tm-timeline-description">
+                                    <h3 class="tm-text-green tm-font-400">Tap Dance</h3>
+                                    <p>I tried tap dancing for one year after watching Singin' In The Rain. Unfortunately, I was quickly disillusioned when I realised two things. Firstly, it would be years before I could even attempt anything close to what I'd seen in the movie. Secondly, I sucked. It's a fond memory that I look back on and laugh at.</p>
+                                    <p class="tm-text-green float-right mb-0">2008 - 2008</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div>
+
+                    <div class="tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="images/animation.jpg" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark-light tm-timeline-description">
+                                    <h3 class="tm-text-cyan tm-font-400">Animation</h3>
+                                    <p>I joined the Infocomm club in 2009, which was mainly an Animation club with an odd dash of Computer Science. I was taught animation techniques, but was also given the opportunity to make games and websites (without writing any code). I even joined a national competition for animation! Here's the kicker: I made it through all 7 years without being able to draw well. I did improve though!</p>
+                                    <p class="tm-text-cyan float-right mb-0">2009 - 2015</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div>
+
+                    <div class="tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="images/macaron.jpg" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark tm-timeline-description">
+                                    <h3 class="tm-text-yellow tm-font-400">Cooking/Baking</h3>
+                                    <p>I'm allergic to milk and nuts - that makes it hard to eat many things, especially food in the dessert category. Fortunately, I have friends who love to bake and help me to make delicious things that I can also eat!</p>
+                                    <p class="tm-text-yellow float-right mb-0">Since Secondary School</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div>
+
+                    <div class="tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="images/embroidery.jpg" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark-light tm-timeline-description">
+                                    <h3 class="tm-text-orange tm-font-400">Embroidery</h3>
+                                    <p>There's no real backstory or reason behind this one, it just seemed therapeutic and fun.</p>
+                                    <p class="tm-text-orange float-right mb-0">2020</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div>
+
+                    <div class="tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="images/code.jpg" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark tm-timeline-description">
+                                    <h3 class="tm-text-green tm-font-400">Coding</h3>
+                                    <p>I'd actually never written a proper line of code before University! I consider myself a beginner with lots to learn now, and I'm sure I'll never run out of things to learn in Computer Science.</p>
+                                    <p class="tm-text-green float-right mb-0">2018 - </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <hr>
+        <!-- Footer -->
+        <footer class="row mt-5 mb-5">
+            <div class="col-lg-12">
+                <p class="text-center tm-text-gray tm-copyright-text mb-0">Copyright &copy;
+                    <span class="tm-current-year">2020</span> Michaela 
+                    
+                    | Design: Templatemo
+                </p>
+            </div>
+        </footer>
+    </div>
+    <!-- .container -->
+
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/templatemo-script.js"></script>
+
+</body>
 </html>

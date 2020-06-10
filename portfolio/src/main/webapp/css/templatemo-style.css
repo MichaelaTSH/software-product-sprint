@@ -51,9 +51,9 @@ h3 {
 
 .paragraph {
     text-decoration: none;
-    padding-left: 200px;
+    margin: auto;
     text-align: center;
-    width: 850px;
+    max-width: 850px;
     font-size: 17px;
     color: #818181;
     display: block;
@@ -68,8 +68,8 @@ h3 {
 }
 
 .project-item {
-    margin-top: 30px;
-    margin-left: 180px;
+    margin: auto;
+    padding-top: 30px;
 }
 
 .tm-site-logo {

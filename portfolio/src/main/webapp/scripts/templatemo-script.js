@@ -42,28 +42,12 @@
 })(jQuery);
 
 $(document).ready(function () {
-
-    // Check for video loading complete
-    var video = document.getElementById("tm-welcome-video");
-
-    video.onloadeddata = function() {
-        $('#tm-video-text-overlay').removeClass('d-none');
-        $('#tm-video-loader').addClass('d-none');
-
-        $('#rotate').rotaterator({
-            fadeSpeed: 1000,
-            pauseSpeed: 300
-        });
-    }
-
     // Update year in copyright text
     document.querySelector('.tm-current-year').textContent = new Date().getFullYear();
 });
 
-/*fetch('/my-data-url')  // sends a request to /my-data-url
-.then(response => response.json()) // parses the response as JSON
-.then((myObject) => { // now we can reference the fields in myObject!
-  console.log(myObject.x);
-  console.log(myObject.y);
-  console.log(myObject.z);
-});*/
+async function fetchJson() {
+    const response = await fetch('/data');
+    const json = await response.text();
+    console.log(json);
+}

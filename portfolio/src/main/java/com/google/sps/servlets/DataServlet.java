@@ -27,17 +27,36 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   ArrayList<String> messages = new ArrayList<String>() {
       {
-          add("message 1");
-          add("message 2");
-          add("message 3");
+          add("abc");
+          add("def");
+          add("ghi");
       }
   };
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJsonUsingGson(messages);
+    String json = convertToJson(messages);
     response.setContentType("application/json;");
     response.getWriter().println(messages);
+  }
+
+  /**
+   * Converts an ArrayList<String> instance into a JSON string using manual String concatenation.
+   */
+  private String convertToJson(ArrayList<String> list) {
+      String json = "{";
+      String attribute = "\"message ";
+
+      json += attribute + "\": \"" + list.get(0) + "\"";
+
+      for (int i = 1; i < list.size(); i++) {
+          json += ", " + attribute + String.valueOf(i) + "\": ";
+          json += "\"" + list.get(i) + "\"";
+      }
+
+      json += "}";
+
+      return json;
   }
 
   /**

@@ -42,6 +42,7 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     String text = getParameter(request, "comment-input", "");
     messages.add(text);
+    response.sendRedirect("/index.html");
   }
 
   /**

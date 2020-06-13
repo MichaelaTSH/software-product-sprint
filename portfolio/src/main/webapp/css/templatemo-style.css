@@ -72,13 +72,12 @@ h3 {
     padding-top: 30px;
 }
 
-#comments {
+#comments-section {
     position: relative;
 }
 
 #comment-input {
     width: 100%;
-    height: 50vh;
 }
 
 #submit-button {

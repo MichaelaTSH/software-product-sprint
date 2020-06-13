@@ -192,11 +192,13 @@ http://www.templatemo.com/tm-517-timeless
                 </div>
             </div>
             <hr>
-        <!-- Future Comments Section? -->
-        <div id="comments">
-            <form action="/data" method="post">
+        <!-- Comments Section -->
+        <div id="comments-section">
+            <div id="comment-list">
+            </div>
+            <form action="/data" method="post" id="comment-form">
                 <label for="comment-input">Comment:</label><br>
-                <input type="text" id="comment-input" name="comment-input"><br><br>
+                <textarea id="comment-input" name="comment-input" rows="10" tabindex="4"  required="required"></textarea><br><br>
                 <input type="submit" id="submit-button" value="Submit">
             </form> 
         </div>

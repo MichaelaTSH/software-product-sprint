@@ -26,12 +26,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   ArrayList<String> messages = new ArrayList<String>();
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(messages);
+    if (messages.size() == 0) {
+        return;
+    }
+    String json = convertToJsonUsingGson(messages);
     response.setContentType("application/json;");
-    response.getWriter().println(messages);
+    response.getWriter().println(json);
   }
 
   @Override
@@ -51,25 +54,6 @@ public class DataServlet extends HttpServlet {
       return defaultValue;
     }
     return value;
-  }
-
-  /**
-   * Converts an ArrayList<String> instance into a JSON string using manual String concatenation.
-   */
-  private String convertToJson(ArrayList<String> list) {
-      String json = "{";
-      String attribute = "\"message ";
-
-      json += attribute + "\": \"" + list.get(0) + "\"";
-
-      for (int i = 1; i < list.size(); i++) {
-          json += ", " + attribute + String.valueOf(i) + "\": ";
-          json += "\"" + list.get(i) + "\"";
-      }
-
-      json += "}";
-
-      return json;
   }
 
   /**

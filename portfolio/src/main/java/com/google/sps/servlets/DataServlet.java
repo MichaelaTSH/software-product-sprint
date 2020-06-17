@@ -25,45 +25,27 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  ArrayList<String> messages = new ArrayList<String>() {
-      {
-          add("abc");
-          add("def");
-          add("ghi");
-      }
-  };
+    private static final Gson gson = new Gson();
+    private ArrayList<String> messages = new ArrayList<String>();
+
+    @Override
+    public void init() {
+        messages.add("message 1");
+        messages.add("message 2");
+        messages.add("message 3");
+    }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(messages);
+    String json = convertToJsonUsingGson(messages);
     response.setContentType("application/json;");
-    response.getWriter().println(messages);
-  }
-
-  /**
-   * Converts an ArrayList<String> instance into a JSON string using manual String concatenation.
-   */
-  private String convertToJson(ArrayList<String> list) {
-      String json = "{";
-      String attribute = "\"message ";
-
-      json += attribute + "\": \"" + list.get(0) + "\"";
-
-      for (int i = 1; i < list.size(); i++) {
-          json += ", " + attribute + String.valueOf(i) + "\": ";
-          json += "\"" + list.get(i) + "\"";
-      }
-
-      json += "}";
-
-      return json;
+    response.getWriter().println(json);
   }
 
   /**
    * Converts an ArrayList<String> instance into a JSON string using the Gson library.
    */
   private String convertToJsonUsingGson(ArrayList<String> list) {
-    Gson gson = new Gson();
     String json = gson.toJson(list);
     return json;
   }

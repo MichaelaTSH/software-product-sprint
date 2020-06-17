@@ -48,6 +48,9 @@ $(document).ready(function () {
 
 async function fetchJson() {
     const response = await fetch('/data');
-    const json = await response.text();
-    document.querySelector('#comments').innerHTML = json;
+    const json = await response.json();
+    
+    var comments = json.reduce((prev, comment) => prev + "<p>" + comment + "</p>", "");
+
+    document.querySelector('#comments').innerHTML = comments;
 }

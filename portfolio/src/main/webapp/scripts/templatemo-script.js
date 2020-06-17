@@ -51,7 +51,7 @@ var pictures = new Array("images/apollo.jpg", "images/bob.jpeg", "images/boomer.
                         "images/rosie.jpg");
 
 /**
- * Fetch the comment data in Json format and create the comments in the comments section.
+ * Fetch the comment data in Json format and create a comment box in the comments section for each comment.
  */
 async function fetchJson() {
     const response = await fetch('/data');

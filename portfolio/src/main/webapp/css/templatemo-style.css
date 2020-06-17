@@ -67,6 +67,15 @@ h3 {
     display: block;
 }
 
+.comments {
+    display: inline-block;
+}
+
+.comment-box {
+    margin: auto;
+    width: 50%;
+}
+
 .project-item {
     margin: auto;
     padding-top: 30px;

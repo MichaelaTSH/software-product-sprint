@@ -25,44 +25,41 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  ArrayList<String> messages = new ArrayList<String>();
+    private static final Gson gson = new Gson();
+    private ArrayList<String> messages = new ArrayList<String>();
   
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    if (messages.size() == 0) {
-        return;
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String json = convertToJsonUsingGson(messages);
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
     }
-    String json = convertToJsonUsingGson(messages);
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    String text = getParameter(request, "comment-input", "");
-    messages.add(text);
-    response.sendRedirect("/index.html");
-  }
-
-  /**
-   * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
-   */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Get the input from the form.
+        String text = getParameter(request, "comment-input", "");
+        messages.add(text);
+        response.sendRedirect("/index.html");
     }
-    return value;
-  }
 
-  /**
-   * Converts an ArrayList<String> instance into a JSON string using the Gson library.
-   */
-  private String convertToJsonUsingGson(ArrayList<String> list) {
-    Gson gson = new Gson();
-    String json = gson.toJson(list);
-    return json;
-  }
+    /**
+    * @return the request parameter, or the default value if the parameter
+    *         was not specified by the client
+    */
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        String value = request.getParameter(name);
+        if (value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
+
+    /**
+    * Converts an ArrayList<String> instance into a JSON string using the Gson library.
+    */
+    private String convertToJsonUsingGson(ArrayList<String> list) {
+        String json = gson.toJson(list);
+        return json;
+    }
 }

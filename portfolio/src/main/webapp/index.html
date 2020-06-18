@@ -27,7 +27,7 @@ http://www.templatemo.com/tm-517-timeless
         <a href="#project">Projects</a>
         <a href="#randomskills">Random Skills</a>
     </div>
-<body>
+<body onload="fetchJson();">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -192,6 +192,17 @@ http://www.templatemo.com/tm-517-timeless
                 </div>
             </div>
             <hr>
+        <!-- Comments Section -->
+        <div id="comments">
+            <template id="comment-template">
+                <div class="comment-box">
+                    <div class="tm-timeline-description">
+                        <img src="images/drift.jpg" id="comment-icon">
+                        <div id="comment-description"></div>
+                    </div>
+                </div>
+            </template>
+        </div>
         <!-- Footer -->
         <footer class="row mt-5 mb-5">
             <div class="col-lg-12">

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     private static final Gson gson = new Gson();
@@ -44,10 +44,9 @@ public class DataServlet extends HttpServlet {
     }
 
     /**
-    * @return the request parameter, or the default value if the parameter
-    *         was not specified by the client
+    * @return the request parameter
     */
-    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    private String getParameter(HttpServletRequest request, String name) {
         String value = request.getParameter(name);
         if (value == null) {
             return defaultValue;

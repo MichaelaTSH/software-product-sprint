@@ -67,6 +67,23 @@ h3 {
     display: block;
 }
 
+#comments {
+    position: relative;
+}
+
+#comment-box {
+    position: absolute;
+}
+
+#comment-icon {
+    float: left;
+    padding-right: 10px;
+}
+
+#comment-description {
+    display: inline;
+}
+
 .project-item {
     margin: auto;
     padding-top: 30px;

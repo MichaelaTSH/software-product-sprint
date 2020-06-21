@@ -55,14 +55,16 @@ var pictures = new Array("images/apollo.jpg", "images/bob.jpeg", "images/boomer.
  */
 async function fetchJson() {
     const response = await fetch('/data');
-    const json = await response.json();
+    const jsonData = await response.json();
 
     var template = document.querySelector('#comment-template');
     var commentBox = template.content.querySelector('div');
     var temp;
 
-    json.forEach(comment => {
-        temp = modifyTemplate(commentBox, comment);
+    Object.keys(jsonData).forEach(function(key) {
+        var text = jsonData[key]['text'];
+        var score = jsonData[key]['score'];
+        temp = modifyTemplate(commentBox, text, score);
         document.querySelector('#comment-list').appendChild(temp);
     });
 }
@@ -70,13 +72,12 @@ async function fetchJson() {
 /**
  * Replace the icon and text of the template comment box with a random icon and the comment.
  */
-function modifyTemplate(commentBox, comment) {
+function modifyTemplate(commentBox, text, score) {
     const tempBox = document.importNode(commentBox, true);
 
-    var randomNum = Math.floor(Math.random() * pictures.length);
-    tempBox.querySelector('#comment-icon').src = pictures[randomNum];
+    tempBox.querySelector('#comment-icon').src = pictures[score];
 
-    tempBox.querySelector('#comment-description').textContent = comment;
+    tempBox.querySelector('#comment-description').textContent = text;
 
     return tempBox;
 }

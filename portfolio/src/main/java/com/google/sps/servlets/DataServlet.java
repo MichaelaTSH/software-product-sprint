@@ -14,6 +14,8 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
+import com.google.sps.comment.Comment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -21,14 +23,9 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.google.cloud.language.v1.Document;
-import com.google.cloud.language.v1.LanguageServiceClient;
-import com.google.cloud.language.v1.Sentiment;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,35 +35,22 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     private static final Gson gson = new Gson();
-    private ArrayList<String> messages = new ArrayList<String>();
     private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
-        PreparedQuery results = datastore.prepare(query);
-        for (Entity entity : results.asIterable()) {
-            String text = (String) entity.getProperty("text");
-            getSentimentScore(text);
-            messages.add(text);
-        }
-        
-        String json = convertToJsonUsingGson(messages);
+        ArrayList<Comment> comments = getCommentList();
+        //String json = convertToJsonUsingGson(comments);
         response.setContentType("application/json;");
-        response.getWriter().println(json);
+        response.getWriter().println(gson.toJson(comments));
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
         String text = getParameter(request, "comment-input", "");
-        long timestamp = System.currentTimeMillis();
-
-        Entity commentEntity = new Entity("Comment");
-        commentEntity.setProperty("text", text);
-        commentEntity.setProperty("time", timestamp);
-
-        datastore.put(commentEntity);
+        Comment newComment = new Comment(text);
+        createCommentEntity(newComment);
         response.sendRedirect("/index.html");
     }
 
@@ -85,18 +69,29 @@ public class DataServlet extends HttpServlet {
     /**
     * Converts an ArrayList<String> instance into a JSON string using the Gson library.
     */
-    private String convertToJsonUsingGson(ArrayList<String> list) {
+    private String convertToJsonUsingGson(ArrayList<Comment> list) {
         String json = gson.toJson(list);
         return json;
     }
 
-    private void getSentimentScore(String message) throws IOException {
-        Document doc =
-        Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
-        LanguageServiceClient languageService = LanguageServiceClient.create();
-        Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
-        float score = sentiment.getScore();
-        languageService.close();
-        System.out.println(score);
+    private void createCommentEntity(Comment comment) {
+        Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("text", comment.getText());
+        commentEntity.setProperty("time", comment.getTime());
+        datastore.put(commentEntity);
+    }
+
+    private ArrayList<Comment> getCommentList() throws IOException {
+        Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+
+        for (Entity entity : results.asIterable()) {
+            String text = (String) entity.getProperty("text");
+            Comment newComment = new Comment(text);
+            comments.add(newComment);
+        }
+
+        return comments;
     }
 }

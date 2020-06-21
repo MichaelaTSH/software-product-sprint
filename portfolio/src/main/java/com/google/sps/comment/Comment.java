@@ -29,9 +29,11 @@ public class Comment {
         return score;
     }
 
-    private void setSentimentScore(String message) throws IOException {
-        Document doc =
-        Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
+    private void initializeSentimentScore(String message) throws IOException {
+        Document doc = Document.newBuilder()
+                       .setContent(message)
+                       .setType(Document.Type.PLAIN_TEXT)
+                       .build();
         LanguageServiceClient languageService = LanguageServiceClient.create();
         Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
         int sentimentScore = Math.round(sentiment.getScore()) + 1;

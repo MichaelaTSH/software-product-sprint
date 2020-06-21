@@ -40,9 +40,9 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ArrayList<Comment> comments = getCommentList();
-        //String json = convertToJsonUsingGson(comments);
+        String json = convertToJsonUsingGson(comments);
         response.setContentType("application/json;");
-        response.getWriter().println(gson.toJson(comments));
+        response.getWriter().println(json);
     }
 
     @Override
@@ -67,13 +67,16 @@ public class DataServlet extends HttpServlet {
     }
 
     /**
-    * Converts an ArrayList<String> instance into a JSON string using the Gson library.
+    *  Converts an ArrayList<String> instance into a JSON string using the Gson library.
     */
     private String convertToJsonUsingGson(ArrayList<Comment> list) {
         String json = gson.toJson(list);
         return json;
     }
 
+    /**
+    *  Creates an Entity from the Comment and puts it in the Datastore.
+    */
     private void createCommentEntity(Comment comment) {
         Entity commentEntity = new Entity("Comment");
         commentEntity.setProperty("text", comment.getText());
@@ -81,6 +84,9 @@ public class DataServlet extends HttpServlet {
         datastore.put(commentEntity);
     }
 
+    /**
+    *  @return an ArrayList<Comment> created from the Entities in the Datastore.
+    */
     private ArrayList<Comment> getCommentList() throws IOException {
         Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
         PreparedQuery results = datastore.prepare(query);

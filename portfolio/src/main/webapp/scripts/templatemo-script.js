@@ -76,7 +76,7 @@ function modifyTemplate(commentBox, text, score) {
     const tempBox = document.importNode(commentBox, true);
 
     var randomNum = Math.floor(Math.random() * pictures[score].length);
-    tempBox.querySelector('#comment-icon').src = pictures[score][randomNum];git
+    tempBox.querySelector('#comment-icon').src = pictures[score][randomNum];
 
     tempBox.querySelector('#comment-description').textContent = text;
 

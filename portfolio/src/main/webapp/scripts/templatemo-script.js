@@ -68,12 +68,18 @@ async function fetchJson() {
     });
 }
 
+/**
+ * An enumeration containing arrays of negative, neutral, and positive images that represent the comment sentiment.
+ */
 const sentimentEnum = {
     NEGATIVE: ["images/blathers-negative.png", "images/isabelle-negative.png"],
     NEUTRAL: ["images/blathers-neutral.png", "images/celeste-neutral.png", "images/isabelle-neutral.png"],
     POSITIVE: ["images/blathers-positive.png", "images/celeste-positive.png", "images/isabelle-positive.png"],
 };
 
+/**
+ * @return an array based on the sentiment score.
+ */
 function getArray(score) {
     switch(score) {
         case 0:
@@ -85,6 +91,9 @@ function getArray(score) {
     }
 }
 
+/**
+ * @return an image from the array at random.
+ */
 function getImage(array) {
     var randomNum = Math.floor(Math.random() * array.length);
     return array[randomNum];

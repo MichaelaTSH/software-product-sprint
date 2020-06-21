@@ -98,9 +98,6 @@ h3 {
 }
 
 #submit-button {
-    position: absolute;
-    right: 0;
-    bottom: 0;
     border: none;
     cursor: pointer;
     width: 10%;

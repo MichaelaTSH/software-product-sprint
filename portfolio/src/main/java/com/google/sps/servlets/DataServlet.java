@@ -22,10 +22,15 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 import com.google.gson.Gson;
-
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.common.collect.Lists;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +49,7 @@ public class DataServlet extends HttpServlet {
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
             String text = (String) entity.getProperty("text");
+            getSentimentScore(text);
             messages.add(text);
         }
         
@@ -84,5 +90,17 @@ public class DataServlet extends HttpServlet {
     private String convertToJsonUsingGson(ArrayList<String> list) {
         String json = gson.toJson(list);
         return json;
+    }
+
+    private void getSentimentScore(String message) throws IOException {
+        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("/key.json"))
+          .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+        Document doc =
+        Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
+        LanguageServiceClient languageService = LanguageServiceClient.create();
+        Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+        float score = sentiment.getScore();
+        languageService.close();
+        System.out.println(score);
     }
 }

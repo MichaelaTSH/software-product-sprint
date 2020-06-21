@@ -34,7 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
+    private static final String COMMENT_INPUT = "comment-input";
     private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     @Override
@@ -48,7 +49,7 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
-        String text = getParameter(request, "comment-input", "");
+        String text = getParameter(request, COMMENT_INPUT, "");
         Comment newComment = new Comment(text);
         createCommentEntity(newComment);
         response.sendRedirect("/index.html");
@@ -70,7 +71,7 @@ public class DataServlet extends HttpServlet {
     *  Converts an ArrayList<String> instance into a JSON string using the Gson library.
     */
     private String convertToJsonUsingGson(ArrayList<Comment> list) {
-        String json = gson.toJson(list);
+        String json = GSON.toJson(list);
         return json;
     }
 

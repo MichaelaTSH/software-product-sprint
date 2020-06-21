@@ -6,15 +6,23 @@ import com.google.cloud.language.v1.Sentiment;
 
 import java.io.IOException;
 
+/**
+ * Represents a Comment written by a user.
+ */
 public class Comment {
     private String text;
     private long timestamp;
+    /** The time the comment was submitted. */
     private int score;
+    /** 
+     * A score given to the comment based on its overall sentiment (Sentiment Score).
+     * It ranges from 0 to 2, with 0 being the most negative and 2 being the most positive.
+     */
 
     public Comment(String message) throws IOException {
         this.text = message;
         this.timestamp = System.currentTimeMillis();
-        setSentimentScore(message);
+        initializeSentimentScore(message);
     }
 
     public String getText() {
@@ -29,6 +37,10 @@ public class Comment {
         return score;
     }
 
+    /**
+     * Calculates and sets the Sentiment Score of the Comment.
+     * The score is rounded to the nearest integer and incremented by 1.
+     */
     private void initializeSentimentScore(String message) throws IOException {
         Document doc = Document.newBuilder()
                        .setContent(message)

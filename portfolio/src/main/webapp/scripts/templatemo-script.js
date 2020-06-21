@@ -46,9 +46,9 @@ $(document).ready(function () {
     document.querySelector('.tm-current-year').textContent = new Date().getFullYear();
 });
 
-var pictures = new Array("images/apollo.jpg", "images/bob.jpeg", "images/boomer.jpg", "images/drift.jpg",
-                        "images/filbert.jpg", "images/kiki.jpg", "images/lolly.jpg", "images/punchy.jpg",
-                        "images/rosie.jpg");
+var pictures = new Array(new Array("images/blathers-negative.png", "images/isabelle-negative.png"), 
+                        new Array("images/blathers-neutral.png", "images/celeste-neutral.png", "images/isabelle-neutral.png"), 
+                        new Array("images/blathers-positive.png", "images/celeste-positive.png", "images/isabelle-positive.png"));
 
 /**
  * Fetch the comment data in Json format and create a comment box in the comments section for each comment.
@@ -75,7 +75,8 @@ async function fetchJson() {
 function modifyTemplate(commentBox, text, score) {
     const tempBox = document.importNode(commentBox, true);
 
-    tempBox.querySelector('#comment-icon').src = pictures[score];
+    var randomNum = Math.floor(Math.random() * pictures[score].length);
+    tempBox.querySelector('#comment-icon').src = pictures[score][randomNum];git
 
     tempBox.querySelector('#comment-description').textContent = text;
 

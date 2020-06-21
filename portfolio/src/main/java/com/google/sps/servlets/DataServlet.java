@@ -22,9 +22,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 import com.google.gson.Gson;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.common.collect.Lists;
-import java.io.FileInputStream;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -93,8 +91,6 @@ public class DataServlet extends HttpServlet {
     }
 
     private void getSentimentScore(String message) throws IOException {
-        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("/key.json"))
-          .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
         Document doc =
         Document.newBuilder().setContent(message).setType(Document.Type.PLAIN_TEXT).build();
         LanguageServiceClient languageService = LanguageServiceClient.create();

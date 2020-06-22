@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private static final Gson GSON = new Gson();
+    private static final Gson gson = new Gson();
     private static final String COMMENT_INPUT = "comment-input";
     private ArrayList<String> messages = new ArrayList<String>();
   
@@ -45,7 +45,8 @@ public class DataServlet extends HttpServlet {
     }
 
     /**
-    * @return the request parameter
+    * @return the request parameter, or the default value if the parameter
+    *         was not specified by the client
     */
     private String getParameter(HttpServletRequest request, String name) {
         String value = request.getParameter(name);
@@ -59,7 +60,7 @@ public class DataServlet extends HttpServlet {
     * Converts an ArrayList<String> instance into a JSON string using the Gson library.
     */
     private String convertToJsonUsingGson(ArrayList<String> list) {
-        String json = GSON.toJson(list);
+        String json = gson.toJson(list);
         return json;
     }
 }

@@ -31,10 +31,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private static final Gson GSON = new Gson();
+    private static final Gson gson = new Gson();
     private static final String COMMENT_INPUT = "comment-input";
     private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -49,16 +49,16 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
-        String text = getParameter(request, COMMENT_INPUT, "");
+        String text = getParameter(request, COMMENT_INPUT, " ");
         Comment newComment = new Comment(text);
         createCommentEntity(newComment);
         response.sendRedirect("/index.html");
     }
 
     /**
-    *  @return the request parameter, or the default value if the parameter
-    *         was not specified by the client
-    */
+     *  @return the request parameter, or the default value if the parameter
+     *         was not specified by the client
+     */
     private String getParameter(HttpServletRequest request, String name, String defaultValue) {
         String value = request.getParameter(name);
         if (value == null) {
@@ -71,7 +71,7 @@ public class DataServlet extends HttpServlet {
     *  Converts an ArrayList<String> instance into a JSON string using the Gson library.
     */
     private String convertToJsonUsingGson(ArrayList<Comment> list) {
-        String json = GSON.toJson(list);
+        String json = gson.toJson(list);
         return json;
     }
 

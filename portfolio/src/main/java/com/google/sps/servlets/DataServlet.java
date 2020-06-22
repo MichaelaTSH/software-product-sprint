@@ -31,10 +31,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     private static final Gson gson = new Gson();
+    private static final String COMMENT_INPUT = "comment-input";
     private ArrayList<String> messages = new ArrayList<String>();
     private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -55,7 +56,7 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
-        String text = getParameter(request, "comment-input", "");
+        String text = getParameter(request, COMMENT_INPUT, "");
         long timestamp = System.currentTimeMillis();
 
         Entity commentEntity = new Entity("Comment");

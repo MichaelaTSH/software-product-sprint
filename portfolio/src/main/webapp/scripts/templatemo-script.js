@@ -61,6 +61,8 @@ async function fetchJson() {
     var commentBox = template.content.querySelector('div');
     var temp;
 
+    //clear the list beforehand
+    document.querySelector('#comment-list').innerHTML = "";
     json.forEach(comment => {
         temp = modifyTemplate(commentBox, comment);
         document.querySelector('#comment-list').appendChild(temp);

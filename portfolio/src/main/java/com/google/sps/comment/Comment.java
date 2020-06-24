@@ -11,13 +11,13 @@ import java.io.IOException;
  */
 public class Comment {
     private String text;
+    // The time the comment was submitted. 
     private long timestamp;
-    /** The time the comment was submitted. */
-    private int score;
     /** 
      * A score given to the comment based on its overall sentiment (Sentiment Score).
-     * It ranges from 0 to 2, with 0 being the most negative and 2 being the most positive.
+     * It can be 0, 1, or 2, with 0 being the most negative and 2 being the most positive.
      */
+    private int score;
 
     public Comment(String message) throws IOException {
         this.text = message;

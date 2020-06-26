@@ -67,8 +67,28 @@ h3 {
     display: block;
 }
 
-#comments {
+.comment-title {
+    text-decoration: none;
+    text-align: center;
+    font-size: 24px;
+    color: #f3f3f3;
+    display: block;
+}
+
+#comments-section {
     position: relative;
+}
+
+
+#submit-button {
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    opacity: 0.9;
+}
+
+#submit-button:hover {
+    opacity: 1;
 }
 
 #comment-box {
@@ -87,6 +107,10 @@ h3 {
 .project-item {
     margin: auto;
     padding-top: 30px;
+}
+
+#comment-input {
+    width: 100%;
 }
 
 .tm-site-logo {

@@ -193,15 +193,22 @@ http://www.templatemo.com/tm-517-timeless
             </div>
             <hr>
         <!-- Comments Section -->
-        <div id="comments">
-            <template id="comment-template">
-                <div class="comment-box">
-                    <div class="tm-timeline-description">
-                        <img src="images/drift.jpg" id="comment-icon">
-                        <div id="comment-description"></div>
+        <div id="comments-section">
+            <form action="/data" method="post" id="comment-form">
+                <h3 class="comment-title">Leave a comment below:</h3><br>
+                <textarea id="comment-input" name="comment-input" rows="10" tabindex="4"  required="required"></textarea><br><br>
+                <input type="submit" id="submit-button" value="Submit">
+            </form> 
+            <div id="comment-list">
+                <template id="comment-template">
+                    <div class="comment-box">
+                        <div class="tm-timeline-description">
+                            <img src="images/drift.jpg" id="comment-icon">
+                            <div id="comment-description"></div>
+                        </div>
                     </div>
-                </div>
-            </template>
+                </template>
+            </div>
         </div>
         <!-- Footer -->
         <footer class="row mt-5 mb-5">

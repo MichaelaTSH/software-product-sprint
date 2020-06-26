@@ -22,33 +22,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     private static final Gson gson = new Gson();
+    private static final String COMMENT_INPUT = "comment-input";
     private ArrayList<String> messages = new ArrayList<String>();
-
+  
     @Override
-    public void init() {
-        messages.add("message 1");
-        messages.add("message 2");
-        messages.add("According to all known laws of aviation, there is no way a bee should be able to fly. " + 
-                    "Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway " +
-                    "because bees don't care what humans think is impossible.");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;");
+        response.getWriter().println(gson.toJson(messages));
     }
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJsonUsingGson(messages);
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
-  }
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Get the input from the form.
+        String text = getParameter(request, COMMENT_INPUT, " ");
+        messages.add(text);
+        response.sendRedirect("/index.html");
+    }
 
-  /**
-   * Converts an ArrayList<String> instance into a JSON string using the Gson library.
-   */
-  private String convertToJsonUsingGson(ArrayList<String> list) {
-    String json = gson.toJson(list);
-    return json;
-  }
+    /**
+    * @return the request parameter, or the default value if the parameter
+    *         was not specified by the client
+    */
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        String value = request.getParameter(name);
+        if (value == null) {
+            return defaultValue;
+        }
+        return value;
+    }
 }

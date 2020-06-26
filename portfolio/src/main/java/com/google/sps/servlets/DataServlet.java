@@ -47,7 +47,7 @@ public class DataServlet extends HttpServlet {
             String text = (String) entity.getProperty("text");
             messages.add(text);
         }
-        
+
         response.setContentType("application/json;");
         response.getWriter().println(gson.toJson(messages));
     }
@@ -73,7 +73,7 @@ public class DataServlet extends HttpServlet {
     private String getParameter(HttpServletRequest request, String name, String defaultValue) {
         String value = request.getParameter(name);
         if (value == null) {
-          return defaultValue;
+            return defaultValue;
         }
         return value;
     }

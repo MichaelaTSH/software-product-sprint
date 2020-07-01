@@ -109,8 +109,23 @@ h3 {
     padding-top: 30px;
 }
 
+#comments-section {
+    position: relative;
+}
+
 #comment-input {
     width: 100%;
+}
+
+#submit-button {
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    opacity: 0.9;
+}
+
+#submit-button:hover {
+    opacity: 1;
 }
 
 .tm-site-logo {

@@ -14,9 +14,18 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+
 import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +37,17 @@ public class DataServlet extends HttpServlet {
     private static final Gson gson = new Gson();
     private static final String COMMENT_INPUT = "comment-input";
     private ArrayList<String> messages = new ArrayList<String>();
-  
+    private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Comment").addSort("time", SortDirection.DESCENDING);
+        PreparedQuery results = datastore.prepare(query);
+        for (Entity entity : results.asIterable()) {
+            String text = (String) entity.getProperty("text");
+            messages.add(text);
+        }
+
         response.setContentType("application/json;");
         response.getWriter().println(gson.toJson(messages));
     }
@@ -39,12 +56,18 @@ public class DataServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
         String text = getParameter(request, COMMENT_INPUT, " ");
-        messages.add(text);
+        long timestamp = System.currentTimeMillis();
+
+        Entity commentEntity = new Entity("Comment");
+        commentEntity.setProperty("text", text);
+        commentEntity.setProperty("time", timestamp);
+
+        datastore.put(commentEntity);
         response.sendRedirect("/index.html");
     }
 
     /**
-    * @return the request parameter, or the default value if the parameter
+    *  @return the request parameter, or the default value if the parameter
     *         was not specified by the client
     */
     private String getParameter(HttpServletRequest request, String name, String defaultValue) {

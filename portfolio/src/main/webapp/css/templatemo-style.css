@@ -67,28 +67,8 @@ h3 {
     display: block;
 }
 
-.comment-title {
-    text-decoration: none;
-    text-align: center;
-    font-size: 24px;
-    color: #f3f3f3;
-    display: block;
-}
-
-#comments-section {
+#comments {
     position: relative;
-}
-
-
-#submit-button {
-    border: none;
-    cursor: pointer;
-    width: 10%;
-    opacity: 0.9;
-}
-
-#submit-button:hover {
-    opacity: 1;
 }
 
 #comment-box {

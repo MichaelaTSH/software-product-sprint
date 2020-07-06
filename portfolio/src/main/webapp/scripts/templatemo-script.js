@@ -46,16 +46,12 @@ $(document).ready(function () {
     document.querySelector('.tm-current-year').textContent = new Date().getFullYear();
 });
 
-var pictures = new Array("images/apollo.jpg", "images/bob.jpeg", "images/boomer.jpg", "images/drift.jpg",
-                        "images/filbert.jpg", "images/kiki.jpg", "images/lolly.jpg", "images/punchy.jpg",
-                        "images/rosie.jpg");
-
 /**
  * Fetch the comment data in Json format and create a comment box in the comments section for each comment.
  */
 async function fetchJson() {
     const response = await fetch('/data');
-    const json = await response.json();
+    const jsonData = await response.json();
 
     var template = document.querySelector('#comment-template');
     var commentBox = template.content.querySelector('div');
@@ -63,22 +59,55 @@ async function fetchJson() {
 
     //clear the list beforehand
     document.querySelector('#comment-list').innerHTML = "";
-    json.forEach(comment => {
-        temp = modifyTemplate(commentBox, comment);
+
+    Object.keys(jsonData).forEach(function(key) {
+        var text = jsonData[key]['text'];
+        var score = jsonData[key]['score'];
+        temp = modifyTemplate(commentBox, text, score);
         document.querySelector('#comment-list').appendChild(temp);
     });
 }
 
 /**
+ * An enumeration containing arrays of negative, neutral, and positive images that represent the comment sentiment.
+ */
+const sentimentEnum = {
+    NEGATIVE: ["images/blathers-negative.png", "images/isabelle-negative.png"],
+    NEUTRAL: ["images/blathers-neutral.png", "images/celeste-neutral.png", "images/isabelle-neutral.png"],
+    POSITIVE: ["images/blathers-positive.png", "images/celeste-positive.png", "images/isabelle-positive.png"],
+};
+
+/**
+ * @return an array based on the sentiment score.
+ */
+function getArray(score) {
+    switch(score) {
+        case 0:
+            return sentimentEnum.NEGATIVE;
+        case 1:
+            return sentimentEnum.NEUTRAL;
+        case 2:
+            return sentimentEnum.POSITIVE;
+    }
+}
+
+/**
+ * @return an image from the array at random.
+ */
+function getImage(array) {
+    var randomNum = Math.floor(Math.random() * array.length);
+    return array[randomNum];
+}
+
+/**
  * Replace the icon and text of the template comment box with a random icon and the comment.
  */
-function modifyTemplate(commentBox, comment) {
+function modifyTemplate(commentBox, text, score) {
     const tempBox = document.importNode(commentBox, true);
 
-    var randomNum = Math.floor(Math.random() * pictures.length);
-    tempBox.querySelector('#comment-icon').src = pictures[randomNum];
+    tempBox.querySelector('#comment-icon').src = getImage(getArray(score));
 
-    tempBox.querySelector('#comment-description').textContent = comment;
+    tempBox.querySelector('#comment-description').textContent = text;
 
     return tempBox;
 }
